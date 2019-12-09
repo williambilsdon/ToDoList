@@ -62,7 +62,7 @@ class ToDoApp extends React.Component{
     this.state = {
       tasks: [],
       input: null,
-      nextKey: 0
+      nextKey: 0,
     }
     this.addItem=this.addItem.bind(this);
     this.deleteItem=this.deleteItem.bind(this);
@@ -77,15 +77,17 @@ class ToDoApp extends React.Component{
     console.log(newList)
   }
   
+  /*
   componentDidMount(){
     this.addItem("Example Activity 1");
-    this.setState({nextKey: 1})
     this.addItem("Example Activity 2");
-    this.setState({nextKey: 2})
     this.addItem("Example Activity 3");
+    this.setState({nextKey: 1})
+    this.setState({nextKey: 2})
     this.setState({nextKey: 3})
+    
   }
-  
+  */
   deleteItem(item) {
     var newList = this.state.tasks;
     var index = newList.indexOf(item)
@@ -101,6 +103,7 @@ class ToDoApp extends React.Component{
         <TaskList tasks = {this.state.tasks} delete={this.deleteItem} />
       </div>
     );
+    
   }
 }
 
