@@ -66,25 +66,26 @@ class ToDoApp extends React.Component{
     }
     this.addItem=this.addItem.bind(this);
     this.deleteItem=this.deleteItem.bind(this);
-
-
-    this.state.tasks.push({key: 0, value:"learn react"});
-    this.state.tasks.push({key: 1, value:"Go shopping"});
-    this.state.tasks.push({key: 2, value:"add to do tasks"});
     
-  }
-
-  componentDidMount(){
-    this.setState({nextKey: this.state.tasks.length});
   }
 
   addItem(toDoItem) {
     var newList = this.state.tasks;
+    console.log(this.state.nextKey)
     newList.push({key: this.state.nextKey, value: toDoItem});
     this.setState({tasks: newList, nextKey: newList.length});
-    console.log(this.state.tasks)
+    console.log(newList)
   }
-
+  
+  componentDidMount(){
+    this.addItem("Example Activity 1");
+    this.setState({nextKey: 1})
+    this.addItem("Example Activity 2");
+    this.setState({nextKey: 2})
+    this.addItem("Example Activity 3");
+    this.setState({nextKey: 3})
+  }
+  
   deleteItem(item) {
     var newList = this.state.tasks;
     var index = newList.indexOf(item)
