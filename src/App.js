@@ -9,13 +9,12 @@ class TaskList extends React.Component{
     this.List = this.List.bind(this);
   }
 
-  handleClick(key){
-    console.log(key)
-    this.props.delete(key);
+  handleClick(task){
+    this.props.delete(task);
   }
 
   List(task){
-    return <li key={task.key}><button type="button" onClick={this.handleClick(task.key)}>{task.value}</button></li>
+    return <li key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button></li>
   }
 
   render(){
@@ -62,24 +61,35 @@ class ToDoApp extends React.Component{
     super(props);
     this.state = {
       tasks: [],
-      input: null
+      input: null,
+      nextKey: 0
     }
     this.addItem=this.addItem.bind(this);
     this.deleteItem=this.deleteItem.bind(this);
-    this.state.tasks.push({key: 1, value:"learn react"});
-    this.state.tasks.push({key: 2, value:"Go shopping"});
-    this.state.tasks.push({key: 3, value:"add to do tasks"});
+
+
+    this.state.tasks.push({key: 0, value:"learn react"});
+    this.state.tasks.push({key: 1, value:"Go shopping"});
+    this.state.tasks.push({key: 2, value:"add to do tasks"});
+    
+  }
+
+  componentDidMount(){
+    this.setState({nextKey: this.state.tasks.length});
   }
 
   addItem(toDoItem) {
     var newList = this.state.tasks;
-    newList.push({key: this.state.tasks.length+1, value: toDoItem});
-    this.setState({tasks: newList});
+    newList.push({key: this.state.nextKey, value: toDoItem});
+    this.setState({tasks: newList, nextKey: newList.length});
     console.log(this.state.tasks)
   }
 
   deleteItem(item) {
-    console.log("delete " + item + "?")
+    var newList = this.state.tasks;
+    var index = newList.indexOf(item)
+    newList.splice((index), 1);
+    this.setState({tasks: newList});
   }
 
   render(){
