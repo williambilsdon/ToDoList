@@ -4,18 +4,19 @@ import './App.css';
 class TaskList extends React.Component{
   constructor(props){
     super(props);
+
     this.handleClick = this.handleClick.bind(this);
+    this.List = this.List.bind(this);
   }
 
-  handleClick(task){
-    this.props.deleteItem(task.key);
+  handleClick(key){
+    console.log(key)
+    this.props.delete(key);
   }
 
   List(task){
-    return <li key={task.key}>{task.value}</li>
+    return <li key={task.key}><button type="button" onClick={this.handleClick(task.key)}>{task.value}</button></li>
   }
-
-  
 
   render(){
     var enteries = this.props.tasks;
@@ -78,7 +79,7 @@ class ToDoApp extends React.Component{
   }
 
   deleteItem(item) {
-    console.log(item)
+    console.log("delete " + item + "?")
   }
 
   render(){
