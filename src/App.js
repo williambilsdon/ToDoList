@@ -34,6 +34,7 @@ class AddTodo extends React.Component{
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.file = React.createRef();
+    this.handleChange = this.handleChange.bind(this);
   }
 
   onSubmit(e){
@@ -42,13 +43,18 @@ class AddTodo extends React.Component{
     var input = this.file.current.value;
 
     this.props.addItem(input)
+    this.props.update("")
+  }
+
+  handleChange(e){
+    this.props.update(e.target.value)
   }
 
   render(){
     return(
       <div className="todoAdd">
         <form onSubmit={this.onSubmit}>
-          <input type="text" ref={this.file}/>
+          <input value={this.props.holder} type="text" ref={this.file} onChange={this.handleChange}/>
           <button type="submit">+</button>
         </form>
       </div>
@@ -63,9 +69,11 @@ class ToDoApp extends React.Component{
       tasks: [],
       input: null,
       nextKey: 0,
+      value: ""
     }
     this.addItem=this.addItem.bind(this);
     this.deleteItem=this.deleteItem.bind(this);
+    this.manageInputField=this.manageInputField.bind(this);
     
   }
 
@@ -95,11 +103,15 @@ class ToDoApp extends React.Component{
     this.setState({tasks: newList});
   }
 
+  manageInputField(input){
+    this.setState({value: input})
+  }
+
   render(){
     return(
       <div className = "container">
         <h1>Todo List</h1>
-        <AddTodo input={this.state.input} addItem={this.addItem}/>
+        <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}/>
         <TaskList tasks = {this.state.tasks} delete={this.deleteItem} />
       </div>
     );
