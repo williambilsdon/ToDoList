@@ -8,6 +8,7 @@ class TaskList extends React.Component{
     this.handleClick = this.handleClick.bind(this);
     this.handleComplete = this.handleComplete.bind(this);
     this.List = this.List.bind(this);
+    this.CompleteList = this.CompleteList.bind(this);
   }
 
   handleClick(task){
@@ -16,6 +17,16 @@ class TaskList extends React.Component{
 
   handleComplete(item){
     this.props.update(item);
+  }
+
+  CompleteList(task){
+    return (
+      <div>
+        <form>
+          <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button></li>
+        </form>
+      </div>
+    );
   }
 
   List(task){
@@ -45,7 +56,7 @@ class TaskList extends React.Component{
     }
 
     if(this.props.completed){
-      listItems = completed.map(this.List)
+      listItems = completed.map(this.CompleteList)
     } else {
       listItems = incomplete.map(this.List)
     }
@@ -142,10 +153,12 @@ class ToDoApp extends React.Component{
       <div className = "container">
         <h1>Todo List</h1>
         <div className = "left-container"> 
+          <h3>Incomplete</h3>
           <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}/>
           <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={false} update={this.updateTask}/>
         </div>
         <div className="right-container">
+          <h3>Complete</h3>
           <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={true} />
         </div>
       </div>
