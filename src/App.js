@@ -53,8 +53,8 @@ class ToDoApp extends React.Component{
         <h1>Todo List</h1>
         <div className = "left-container"> 
           <h3>Incomplete</h3>
-          <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}/>
           <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={false} update={this.updateTask}/>
+          <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}/>
         </div>
         <div className="right-container">
           <h3>Complete</h3>
