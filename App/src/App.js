@@ -30,11 +30,6 @@ class ToDoApp extends React.Component{
     .catch(function(error){
       console.log(error)
     });
-    //var newList = this.state.tasks;
-    //console.log(this.state.nextKey)
-    //newList.push({key: this.state.nextKey, value: toDoItem, completed: false});
-    //this.setState({tasks: newList, nextKey: newList.length});
-    //console.log(newList)
   }
   
   deleteItem(item) {

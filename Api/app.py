@@ -3,6 +3,7 @@ from flaskext.couchdb import CouchDBManager, paginate
 from schema import TaskSchema
 from views import user_tasks_view
 from flask_cors import CORS, cross_origin
+from GetTaskIDs import GetTaskIDs
 
 import uuid
 
@@ -11,14 +12,20 @@ cors = CORS(app, resources={r"/todo_list*": {"origins": "*"}})
 manager = CouchDBManager()
 
 manager.setup(app)
+manager.add_viewdef(user_tasks_view)
 
 @app.route('/todo_list/getAllViews', methods=['GET'])
 @cross_origin()
 def getAllTasks():
-    tasks = user_tasks_view()
-    paginate(tasks, 100, "?start=0")
+    docIDs = GetTaskIDs(user_tasks_view)
 
-    return tasks
+    documents = []
+
+    #for ids in docIDs:
+     #   documents.append(g.couch.get([ids]))
+
+    #print(documents)
+    return docIDs
 
 @app.route('/todo_list/addTask', methods=['POST'])
 @cross_origin()
@@ -27,7 +34,6 @@ def addTask():
     taskValue = request.get_data()
     print(taskValue)
     task = TaskSchema(value=taskValue, completed=False)
-    task.id = uuid.uuid4().hex
     print(task)
     task.store()
 
