@@ -65,6 +65,17 @@ class ToDoApp extends React.Component{
   }
   
   deleteItem(item) {
+
+    axios.delete('http://localhost:5000/todo_list/deleteTask',
+      item['key']
+    )
+    .then(function(response){
+      console.log(response)
+    })
+    .catch(function(error){
+      console.log(error)
+    })
+
     var newList = this.state.tasks;
     var index = newList.indexOf(item)
     newList.splice((index), 1);

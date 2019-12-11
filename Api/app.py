@@ -23,7 +23,7 @@ def getAllTasks():
 
     for ids in docIDs:
         documents.append(g.couch[ids])
-        
+
     return jsonify(documents)
 
 @app.route('/todo_list/addTask', methods=['POST'])
@@ -37,6 +37,15 @@ def addTask():
     task.store()
 
     return make_response('POST Succesful', 200)
+
+@app.route('/todo_list/deleteTask', methods=['DELETE'])
+@cross_origin()
+def deleteTask():
+    docID = request.get_data()
+
+    del g.couch[docID]
+
+    return make_response('DELETE Successful', 200)
 
 if __name__ == '__main__':
     app.config.update(
