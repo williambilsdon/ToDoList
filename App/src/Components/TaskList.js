@@ -22,7 +22,7 @@ class TaskList extends React.Component{
       return (
         <div>
           <form>
-            <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button></li>
+            <li className="listItems" key={task._id}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button></li>
           </form>
         </div>
       );
@@ -32,7 +32,7 @@ class TaskList extends React.Component{
       return (
         <div>
           <form>
-            <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button><button className="movebtn" onClick={this.handleComplete.bind(this, task)}>></button></li>
+            <li className="listItems" key={task._id}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button><button className="movebtn" onClick={this.handleComplete.bind(this, task)}>></button></li>
           </form>
         </div>
       );
@@ -59,6 +59,8 @@ class TaskList extends React.Component{
       } else {
         listItems = incomplete.map(this.List)
       }
+      console.log("after taskList if statements")
+      console.log(incomplete)
       return(
           <div className="List-Container">
             <ul className="ListOfTasks">

@@ -9,6 +9,7 @@ class ToDoApp extends React.Component{
     super(props);
     this.state = {
       tasks: [],
+      getResult: null,
       input: null,
       nextKey: 0,
       value: ""
@@ -17,7 +18,26 @@ class ToDoApp extends React.Component{
     this.deleteItem=this.deleteItem.bind(this);
     this.manageInputField=this.manageInputField.bind(this);
     this.updateTask=this.updateTask.bind(this);
+    this.getTasks=this.getTasks.bind(this);
+    this.handleGetResponse=this.handleGetResponse.bind(this);
+
+    this.getTasks()
     
+  }
+
+  handleGetResponse(){
+    this.setState({tasks: this.getResult})
+  }
+
+  getTasks() {
+    const that = this;
+
+    axios.get('http://localhost:5000/todo_list/getAllViews')
+      .then(function (response){
+        console.log(response)
+        that.getResult = response.data;
+        that.handleGetResponse()
+      })
   }
 
   addItem(toDoItem) {

@@ -21,11 +21,10 @@ def getAllTasks():
 
     documents = []
 
-    #for ids in docIDs:
-     #   documents.append(g.couch.get([ids]))
-
-    #print(documents)
-    return docIDs
+    for ids in docIDs:
+        documents.append(g.couch[ids])
+        
+    return jsonify(documents)
 
 @app.route('/todo_list/addTask', methods=['POST'])
 @cross_origin()
