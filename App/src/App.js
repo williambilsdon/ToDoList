@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import AddTodo from './Components/AddTodo';
 import TaskList from './Components/TaskList';
+import axios from 'axios';
 
 class ToDoApp extends React.Component{
   constructor(props) {
@@ -20,11 +21,20 @@ class ToDoApp extends React.Component{
   }
 
   addItem(toDoItem) {
-    var newList = this.state.tasks;
-    console.log(this.state.nextKey)
-    newList.push({key: this.state.nextKey, value: toDoItem, completed: false});
-    this.setState({tasks: newList, nextKey: newList.length});
-    console.log(newList)
+    axios.post('http://localhost:5000/todo_list/addTask',
+      toDoItem
+    )
+    .then(function(response){
+      console.log(response);
+    })
+    .catch(function(error){
+      console.log(error)
+    });
+    //var newList = this.state.tasks;
+    //console.log(this.state.nextKey)
+    //newList.push({key: this.state.nextKey, value: toDoItem, completed: false});
+    //this.setState({tasks: newList, nextKey: newList.length});
+    //console.log(newList)
   }
   
   deleteItem(item) {

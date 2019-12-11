@@ -1,18 +1,27 @@
 from flask import Flask, g, request, make_response, jsonify
-from flaskext.couchdb import CouchDBManager
+from flaskext.couchdb import CouchDBManager, paginate
 from schema import TaskSchema
 from views import user_tasks_view
+from flask_cors import CORS, cross_origin
 
 import uuid
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/todo_list*": {"origins": "*"}})
 manager = CouchDBManager()
 
 manager.setup(app)
 
-#@app.route('/todo_list/getAllViews', methods=['POST'])
+@app.route('/todo_list/getAllViews', methods=['GET'])
+@cross_origin()
+def getAllTasks():
+    tasks = user_tasks_view()
+    paginate(tasks, 100, "?start=0")
+
+    return tasks
 
 @app.route('/todo_list/addTask', methods=['POST'])
+@cross_origin()
 def addTask():
     print("request recieved at api")
     taskValue = request.get_data()
