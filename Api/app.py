@@ -4,6 +4,7 @@ from schema import TaskSchema
 from views import user_tasks_view
 from flask_cors import CORS, cross_origin
 from GetTaskIDs import GetTaskIDs
+from couchdb import Server
 
 import uuid
 
@@ -41,9 +42,12 @@ def addTask():
 @app.route('/todo_list/deleteTask', methods=['DELETE'])
 @cross_origin()
 def deleteTask():
+    couch = Server('http://localhost:5984')
+    db = couch['todo_list']
+
     docID = request.get_data()
 
-    del g.couch[docID]
+    del db[docID]
 
     return make_response('DELETE Successful', 200)
 
