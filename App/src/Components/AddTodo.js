@@ -15,6 +15,7 @@ class AddTodo extends React.Component{
       var input = this.file.current.value;
   
       this.props.addItem(input)
+      this.props.refresh()
       this.props.update("")
     }
   

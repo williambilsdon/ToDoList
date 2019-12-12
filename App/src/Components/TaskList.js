@@ -10,12 +10,17 @@ class TaskList extends React.Component{
       this.CompleteList = this.CompleteList.bind(this);
     }
   
-    handleClick(key){
+    handleClick(key, e){
+      e.preventDefault();
       this.props.delete(key);
+      //setTimeout(this.props.refresh(), 100)
+      this.props.refresh()
     }
   
-    handleComplete(item){
+    handleComplete(item, e){
+      e.preventDefault();
       this.props.update(item);
+      this.props.refresh()
     }
   
     CompleteList(task){

@@ -3,6 +3,7 @@ import './App.css';
 import AddTodo from './Components/AddTodo';
 import TaskList from './Components/TaskList';
 import axios from 'axios';
+import Authentication from './Components/Authentication';
 
 class ToDoApp extends React.Component{
   constructor(props) {
@@ -22,7 +23,7 @@ class ToDoApp extends React.Component{
     this.getTasks=this.getTasks.bind(this);
     this.handleGetResponse=this.handleGetResponse.bind(this);
     //perform initial task list update
-    this.getTasks()
+    //this.getTasks()
     
   }
 
@@ -55,15 +56,16 @@ class ToDoApp extends React.Component{
       toDoItem
     )
     .then(function(response){
+      //this.getTasks()
       console.log(response);
     })
     .catch(function(error){
       console.log(error)
     });
     //update task list to display new tasks
-    this.getTasks()
   }
   
+  //run axios post request containing item key to the api to allow api to run delete request
   deleteItem(item) {
 
     let data = item['key']
@@ -72,15 +74,17 @@ class ToDoApp extends React.Component{
       data
     )
     .then(function(response){
+      //this.getTasks()
       console.log(response)
     })
     .catch(function(error){
       console.log(error)
     })
 
-    this.getTasks()
   }
 
+
+  //run axios post request containing item key allowing api to complete update request
   updateTask(item){
     let data = item['key']
 
@@ -89,13 +93,12 @@ class ToDoApp extends React.Component{
     )
     .then(function(response){
       console.log(response)
+      //this.getTasks()
     })
     .catch(function(error){
       console.log(error)
     })
 
-
-    this.getTasks()
   }
 
   manageInputField(input){
@@ -103,17 +106,18 @@ class ToDoApp extends React.Component{
   }
 
   render(){
+    //this.getTasks()
     return(
       <div className = "container">
         <h1>Todo List</h1>
         <div className = "left-container"> 
           <h3>Incomplete</h3>
-          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={false} update={this.updateTask}/>
-          <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}/>
+          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={false} update={this.updateTask}refresh={this.getTasks}/>
+          <AddTodo holder={this.state.value} update={this.manageInputField}input={this.state.input} addItem={this.addItem}refresh={this.getTasks}/>
         </div>
         <div className="right-container">
           <h3>Complete</h3>
-          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={true} update={this.updateTask}/>
+          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={true} update={this.updateTask} refresh={this.getTasks}/>
         </div>
       </div>
     );

@@ -5,6 +5,10 @@
   margin: 0 20% 0 20%;
 }
 
+.Auth-Container{
+  float: right;
+}
+
 .left-container{
   float: left;
   display: grid;
