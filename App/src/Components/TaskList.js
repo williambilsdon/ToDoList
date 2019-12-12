@@ -19,10 +19,11 @@ class TaskList extends React.Component{
     }
   
     CompleteList(task){
+      //<button className="movebtn" onClick={this.handleComplete.bind(this, task)}>></button>
       return (
         <div>
           <form>
-            <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task.key)}>{task.value}</button></li>
+            <li className="listItems" key={task.key}><button className="movebtn" onClick={this.handleComplete.bind(this, task)}>{"<"}</button><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task.key)}>{task.value}</button></li>
           </form>
         </div>
       );

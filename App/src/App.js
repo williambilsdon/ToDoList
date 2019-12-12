@@ -120,7 +120,7 @@ class ToDoApp extends React.Component{
         </div>
         <div className="right-container">
           <h3>Complete</h3>
-          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={true} />
+          <TaskList tasks = {this.state.tasks} delete={this.deleteItem} completed={true} update={this.updateTask}/>
         </div>
       </div>
     );
