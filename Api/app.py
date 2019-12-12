@@ -48,6 +48,20 @@ def deleteTask():
     del db[id]
     return make_response('DELETE Successful', 200)
 
+@app.route('/todo_list/updateTask', methods=['POST'])
+@cross_origin()
+def updateTask():
+    document = g.couch[request.get_data()]
+
+    if not document['completed']:
+        document['completed'] = True
+    else: 
+        document['completed'] = False
+
+    g.couch.save(document)
+
+    return make_response('UPDATE Successful', 200)
+
 if __name__ == '__main__':
     app.config.update(
         DEBUG = True,

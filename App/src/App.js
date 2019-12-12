@@ -85,6 +85,18 @@ class ToDoApp extends React.Component{
   }
 
   updateTask(item){
+    let data = item['key']
+
+    axios.post('http://localhost:5000/todo_list/updateTask',
+      data
+    )
+    .then(function(response){
+      console.log(response)
+    })
+    .catch(function(error){
+      console.log(error)
+    })
+
     var currentList = this.state.tasks;
     var index = currentList.indexOf(item);
 
