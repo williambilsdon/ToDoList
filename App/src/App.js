@@ -42,7 +42,7 @@ class ToDoApp extends React.Component{
 
     axios.get('http://localhost:5000/todo_list/getAllViews')
       .then(function (response){
-        //console.log(response)
+        console.log(response)
         that.getResult = response.data;
         that.handleGetResponse()
       })
@@ -66,8 +66,10 @@ class ToDoApp extends React.Component{
   
   deleteItem(item) {
 
-    axios.delete('http://localhost:5000/todo_list/deleteTask',
-      item['key']
+    let data = item['key']
+
+    axios.post('http://localhost:5000/todo_list/deleteTask',
+      data
     )
     .then(function(response){
       console.log(response)

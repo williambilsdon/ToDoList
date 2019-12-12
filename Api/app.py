@@ -5,11 +5,12 @@ from views import user_tasks_view
 from flask_cors import CORS, cross_origin
 from GetTaskIDs import GetTaskIDs
 from couchdb import Server
+import requests
 
 import uuid
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/todo_list*": {"origins": "*"}})
+cors = CORS(app, resources={r"/todo_list/*": {"origins": "*"}})
 manager = CouchDBManager()
 
 manager.setup(app)
@@ -19,7 +20,6 @@ manager.add_viewdef(user_tasks_view)
 @cross_origin()
 def getAllTasks():
     docIDs = GetTaskIDs(user_tasks_view)
-
     documents = []
 
     for ids in docIDs:
@@ -39,16 +39,13 @@ def addTask():
 
     return make_response('POST Succesful', 200)
 
-@app.route('/todo_list/deleteTask', methods=['DELETE'])
+@app.route('/todo_list/deleteTask', methods=['POST'])
 @cross_origin()
 def deleteTask():
-    couch = Server('http://localhost:5984')
-    db = couch['todo_list']
-
-    docID = request.get_data()
-
-    del db[docID]
-
+    id = request.get_data()
+    server = Server()
+    db = server['todo_list']
+    del db[id]
     return make_response('DELETE Successful', 200)
 
 if __name__ == '__main__':
@@ -57,5 +54,5 @@ if __name__ == '__main__':
         COUCHDB_SERVER = "http://localhost:5984/",
         COUCHDB_DATABASE = "todo_list"
         )
-    app.run()
+    app.run(threaded = True)
 

@@ -10,8 +10,8 @@ class TaskList extends React.Component{
       this.CompleteList = this.CompleteList.bind(this);
     }
   
-    handleClick(task){
-      this.props.delete(task);
+    handleClick(key){
+      this.props.delete(key);
     }
   
     handleComplete(item){
@@ -22,7 +22,7 @@ class TaskList extends React.Component{
       return (
         <div>
           <form>
-            <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task)}>{task.value}</button></li>
+            <li className="listItems" key={task.key}><button className="liButtons"type="button" onClick={this.handleClick.bind(this, task.key)}>{task.value}</button></li>
           </form>
         </div>
       );
