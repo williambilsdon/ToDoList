@@ -78,10 +78,7 @@ class ToDoApp extends React.Component{
       console.log(error)
     })
 
-    var newList = this.state.tasks;
-    var index = newList.indexOf(item)
-    newList.splice((index), 1);
-    this.setState({tasks: newList});
+    this.getTasks()
   }
 
   updateTask(item){
@@ -97,12 +94,8 @@ class ToDoApp extends React.Component{
       console.log(error)
     })
 
-    var currentList = this.state.tasks;
-    var index = currentList.indexOf(item);
 
-    currentList[index].completed = true;
-
-    this.setState({tasks: currentList});
+    this.getTasks()
   }
 
   manageInputField(input){

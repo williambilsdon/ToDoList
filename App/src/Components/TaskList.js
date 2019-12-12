@@ -19,7 +19,7 @@ class TaskList extends React.Component{
     }
   
     CompleteList(task){
-      //<button className="movebtn" onClick={this.handleComplete.bind(this, task)}>></button>
+      //returns Li for completed tasks - component to be rendered on the right hand side
       return (
         <div>
           <form>
@@ -30,6 +30,7 @@ class TaskList extends React.Component{
     }
   
     List(task){
+      //returns Li for incomplete tasks - component rendered on the left hand side
       return (
         <div>
           <form>
